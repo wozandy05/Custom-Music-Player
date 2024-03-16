@@ -62,10 +62,15 @@ const timeFormatter = (timeInput) => {
 const setSong = (arrayIndex) => {
   //this extracts all the variables from the object
   let { name, src, artist, img } = songsList[arrayIndex];
-  audio.src = 'https://colddb.netlify.app/audio/' + src + ".mp3";
+  try {
+     audio.src = 'https://colddb.netlify.app/audio/' + src + ".mp3";
+    songImage.src = 'https://colddb.netlify.app/images/' + img + '.jpg';
+  } catch(err) {
+    console.log(err);
+  }
+ 
   songName.innerHTML = name;
   songArtist.innerHTML = artist;
-  songImage.src = 'https://colddb.netlify.app/images/' + img + '.jpg';
   //display duration when metadata loads
   audio.onloadedmetadata = () => {
     maxDuration.innerText = timeFormatter(audio.duration);
