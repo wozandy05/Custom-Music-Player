@@ -61,14 +61,14 @@ const timeFormatter = (timeInput) => {
 //set song
 const setSong = (arrayIndex) => {
   //this extracts all the variables from the object
-  let { name, src, artist, img } = songsList[arrayIndex];
+  let { name, src, artist, img } = allMusic[arrayIndex];
   try {
      audio.src = 'https://colddb.netlify.app/audio/' + src + ".mp3";
     songImage.src = 'https://colddb.netlify.app/images/' + img + '.jpg';
   } catch(err) {
     console.log(err);
   }
- 
+
   songName.innerHTML = name;
   songArtist.innerHTML = artist;
   //display duration when metadata loads
@@ -101,7 +101,7 @@ repeatButton.addEventListener("click", () => {
 const nextSong = () => {
   //if loop is true then continue in normal order
   if (loop) {
-    if (index == songsList.length - 1) {
+    if (index == allMusic.length - 1) {
       //If last song is being played
       index = 0;
     } else {
@@ -112,7 +112,7 @@ const nextSong = () => {
     playAudio();
   } else {
     //else find a random index and play that song
-    let randIndex = Math.floor(Math.random() * songsList.length);
+    let randIndex = Math.floor(Math.random() * allMusic.length);
     console.log(randIndex);
     setSong(randIndex);
     playAudio();
@@ -133,7 +133,7 @@ const previousSong = () => {
     index -= 1;
   } else {
     //if first song is being played
-    index = songsList.length - 1;
+    index = allMusic.length - 1;
   }
   setSong(index);
   playAudio();
@@ -204,17 +204,17 @@ audio.addEventListener("timeupdate", () => {
 
 //Creates playlist
 const initializePlaylist = () => {
-  for (let i in songsList) {
+  for (let i in allMusic) {
     playlistSongs.innerHTML += `<li class='playlistSong' onclick='setSong(${i})'>
             <div class="playlist-image-container">
-                <img src="https://colddb.netlify.app/images/${songsList[i].img}.jpg" />
+                <img src="https://colddb.netlify.app/images/${allMusic[i].img}.jpg" />
             </div>
             <div class="playlist-song-details">
                 <span id="playlist-song-name">
-                    ${songsList[i].name}
+                    ${allMusic[i].name}
                 </span>
                 <span id="playlist-song-artist-album">
-                    ${songsList[i].artist}
+                    ${allMusic[i].artist}
                 </span>
             </div>
         </li>`;
